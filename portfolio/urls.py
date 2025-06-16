@@ -4,8 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include("portfolio_app.urls")),  # sacá la barra inicial '/'
+    path('', admin.site.urls),
+    path('api/', include("portfolio_app.urls")),  
 ]
 
 if settings.DEBUG:

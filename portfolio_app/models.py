@@ -10,7 +10,7 @@ class Media(models.Model):
 class Education(models.Model): 
     title = models.CharField(max_length=200)
     university = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=800)
     start_date = models.DateField()
     end_date = models.DateField()
 
