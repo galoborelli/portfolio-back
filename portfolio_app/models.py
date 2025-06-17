@@ -1,11 +1,21 @@
 from django.db import models
 
-class Media(models.Model):
-    title = models.CharField(max_length=200)
-    url = models.URLField(max_length=200)
 
+
+class Projects (models.Model): 
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+    
     def __str__(self):
-        return self.title
+        return self.title + " " + self.description
+
+class Media(models.Model):
+   project = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='medias', max_length=200, null=True)
+   url = models.URLField(max_length=200)
+
+   def __str__(self):
+    return str(self.project)
+
 
 class Education(models.Model): 
     title = models.CharField(max_length=200)
@@ -18,8 +28,3 @@ class Education(models.Model):
         return self.title
 
 
-class Projects (models.Model): 
-    title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
-    
-    

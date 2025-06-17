@@ -3,7 +3,7 @@ from .models import Media, Education, Projects
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url')
+    list_display = ('project', 'url')
 
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
