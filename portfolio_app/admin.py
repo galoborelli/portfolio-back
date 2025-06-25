@@ -11,4 +11,4 @@ class EducationAdmin(admin.ModelAdmin):
 
 @admin.register(Projects)
 class ProjectsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description')
+    list_display = ('title',)

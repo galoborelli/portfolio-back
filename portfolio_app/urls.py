@@ -1,9 +1,10 @@
-
 from django.urls import path
-from . import views
+from .views import ProjectsList, EducationList, MediaList
+
+
 
 urlpatterns = [
-   path('projects/', views.ProjectsList.as_view(), name='project-list'),
-   path('education/', views.EducationList.as_view(), name='education-list'),
-   path('media/', views.MediaList.as_view(), name='media-list'),
+  path('api/projects', ProjectsList.as_view(), name='projects-list'),
+  path('api/education', EducationList.as_view(), name='education-list'),
+  path('api/media', MediaList.as_view(), name='media-list'),
 ]

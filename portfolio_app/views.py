@@ -1,12 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Projects, Education, Media
-
+from .serializer import ProjectSerializer
 
 class ProjectsList(APIView):
     def get(self, request):
         projects = Projects.objects.all()
-        return Response(projects)
+        serializer = ProjectSerializer(projects, many=True)
+        print(serializer)
+        return Response(serializer.data) 
 
 
 class EducationList(APIView):
