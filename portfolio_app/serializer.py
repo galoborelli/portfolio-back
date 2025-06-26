@@ -1,7 +1,7 @@
 # serializers.py
 
 from rest_framework import serializers
-from .models import Projects, Media
+from .models import Projects, Media, Education
 
 class MediaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,3 +14,9 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
         fields = ['id', 'title', 'description', 'medias']
+
+
+class EducationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Education
+        fields = ['id', 'title', 'university', 'description', 'start_date', 'end_date']

@@ -10,7 +10,7 @@ class Projects (models.Model):
         return self.title + " " + self.description
 
 class Media(models.Model):
-   project = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='medias', max_length=200, null=True)
+   project = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='medias', max_length=200, null=True,blank=True)
    url = models.URLField(max_length=200)
 
    def __str__(self):
