@@ -13,7 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Projects
-        fields = ['id', 'title', 'description', 'medias']
+        fields = ['id', 'title', 'description', 'medias', 'tecnologies']
 
 
 class EducationSerializer(serializers.ModelSerializer):
