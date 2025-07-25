@@ -27,8 +27,10 @@ ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='').split(',')
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
-    "https://tu-frontend-en-render.onrender.com",  # Agregá esto cuando subas tu front
-]
+    "https://portfolio-git-main-galo-borellis-projects.vercel.app",
+    # Si tienes un dominio personalizado en Vercel, añádelo aquí también
+    "https://tu-dominio-personalizado.com",
+]  # Agregá esto cuando subas tu front
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
