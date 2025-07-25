@@ -29,7 +29,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://portfolio-git-main-galo-borellis-projects.vercel.app",
     # Si tienes un dominio personalizado en Vercel, añádelo aquí también
-    "https://tu-dominio-personalizado.com",
+    
 ]  # Agregá esto cuando subas tu front
 
 # Aplicaciones instaladas
