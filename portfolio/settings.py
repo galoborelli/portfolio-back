@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 from decouple import config
-
+import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración para archivos multimedia (imágenes)
@@ -85,14 +85,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 # Base de datos
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE'),
-        'USER': config('PGUSER'),
-        'PASSWORD': config('PGPASSWORD'),
-        'HOST': config('PGHOST'),
-        'PORT': config('PGPORT', default='5432'),
-    }
+    'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
 }
 
 # Validadores de contraseña
