@@ -28,6 +28,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "https://portfolio-git-main-galo-borellis-projects.vercel.app",
+    "https://portfolio-nine-xi-mz73974ekx.vercel.app"
     # Si tienes un dominio personalizado en Vercel, añádelo aquí también
     
 ]  # Agregá esto cuando subas tu front
@@ -84,9 +85,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 # Base de datos
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
-}
+if config('DATABASE_URL', default=None):
+    DATABASES = {
+        'default': dj_database_url.config(default=config('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('PGDATABASE'),
+            'USER': config('PGUSER'),
+            'PASSWORD': config('PGPASSWORD'),
+            'HOST': config('PGHOST'),
+            'PORT': config('PGPORT'),
+        }
+    }
 
 # Validadores de contraseña
 AUTH_PASSWORD_VALIDATORS = [

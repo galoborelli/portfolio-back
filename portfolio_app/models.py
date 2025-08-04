@@ -6,6 +6,8 @@ class Projects (models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=800)
     tecnologies = ArrayField(models.CharField(max_length=200), default=list,blank=True)
+    link_front = models.URLField(default="", max_length=200)
+    link_back = models.URLField(default="", max_length=200)
     
     def __str__(self):
         return self.title + " " + self.description
@@ -21,7 +23,7 @@ class Media(models.Model):
 class Education(models.Model): 
     title = models.CharField(max_length=200)
     university = models.CharField(max_length=200)
-    description = models.CharField(max_length=800)
+    description = models.CharField(default="",max_length=800)
     start_date = models.DateField()
     end_date = models.DateField()
 
