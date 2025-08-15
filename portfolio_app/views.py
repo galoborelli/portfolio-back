@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Projects, Education, Media
-from .serializer import ProjectSerializer, MediaSerializer, EducationSerializer
+from .models import Projects, Education, Media, SectionText
+from .serializer import ProjectSerializer, MediaSerializer, EducationSerializer, SectionTextSerializer
 
 
 
@@ -36,5 +36,10 @@ class MediaList(APIView):
 
 
 
-    
+class SectionTextList(APIView):
+
+    def get(self, request):
+        section_text = SectionText.objects.all()
+        serializer = SectionTextSerializer(section_text, many=True)
+        return Response(serializer.data)
     

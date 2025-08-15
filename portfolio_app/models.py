@@ -30,4 +30,20 @@ class Education(models.Model):
     def __str__(self):
         return self.title
 
-
+class SectionText(models.Model):
+    CHOICES = [
+        ('sidebar', 'Sidebar'),
+        ('presentation', 'Presentation'),
+        ('skills', 'Skills'),
+        ('soft_skills', 'Soft Skills'),
+        ('contact', 'Contact'),
+    ]
+    
+    section_text = models.CharField(max_length=200, choices=CHOICES, blank=True, null=True)
+    title_section = models.CharField(max_length=200, blank=True, null=True)
+    title = models.CharField(max_length=200, blank=True, null=True)
+    content = models.JSONField(blank=True, null=True)
+    button_text = models.CharField(max_length=200, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.title} {self.content}"
