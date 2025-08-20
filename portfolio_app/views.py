@@ -36,10 +36,17 @@ class MediaList(APIView):
 
 
 
+
+
 class SectionTextList(APIView):
 
     def get(self, request):
         section_text = SectionText.objects.all()
         serializer = SectionTextSerializer(section_text, many=True)
-        return Response(serializer.data)
+
+        # Transformar lista → dict indexado por section_text
+        data = {item["section_text"]: item for item in serializer.data}
+
+        return Response(data)
+
     

@@ -3,6 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Projects (models.Model): 
+    order = models.IntegerField(default=0)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=800)
     tecnologies = ArrayField(models.CharField(max_length=200), default=list,blank=True)

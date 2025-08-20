@@ -13,7 +13,7 @@ class EducationAdmin(admin.ModelAdmin):
 
 @admin.register(Projects)
 class ProjectsAdmin(admin.ModelAdmin):
-    list_display = ('title',  'tecnologies', 'link_front', 'link_back')
+    list_display = ('title', 'order', 'tecnologies', 'link_front', 'link_back')
 
 
 
