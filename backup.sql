@@ -4,10 +4,9 @@
 
 -- Dumped from database version 17.2
 -- Dumped by pg_dump version 17.2
-
+-- Eliminar todas las tablas existentes
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
-
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -471,26 +470,6 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-1	2025-06-16 18:21:16.329+02	1	Analista Programador Universitario	1	[{"added": {}}]	7	1
-2	2025-06-16 18:33:31.39+02	2	Desarrollador Web Full Stack	1	[{"added": {}}]	7	1
-3	2025-06-16 18:43:16.975+02	3	Curso Intensivo de Inglés	1	[{"added": {}}]	7	1
-4	2025-06-16 18:53:21.71+02	4	Licenciatura en Administración de Empresas	1	[{"added": {}}]	7	1
-5	2025-06-17 18:00:32.201+02	1	Ship Relax – Plataforma de reservas náuticas (Abril - Mayo 2025) Desarrollé Ship Relax como proyecto freelance, una aplicación web destinada a gestionar reservas de paseos en barco en la isla de Mallo	1	[{"added": {}}]	8	1
-6	2025-06-17 18:01:15.581+02	1	Ship Relax – Plataforma de reservas náuticas (Abril - Mayo 2025) Desarrollé Ship Relax como proyecto freelance, una aplicación web destinada a gestionar reservas de paseos en barco en la isla de Mallo	1	[{"added": {}}]	9	1
-7	2025-06-17 18:16:56.285+02	1	Ship Relax – Plataforma de reservas náuticas (Abril - Mayo 2025) Ship Relax es un proyecto que representa mi primera experiencia profesional en el desarrollo de software. Se trata de una aplicación we	2	[{"changed": {"fields": ["Description"]}}]	8	1
-8	2025-06-25 10:35:01.073+02	2	None	1	[{"added": {}}]	9	1
-9	2025-06-25 10:39:35.626+02	3	None	1	[{"added": {}}]	9	1
-10	2025-06-30 10:37:16.565445+02	1	Ship Relax – Plataforma de reservas náuticas (Abril - Mayo 2025) Ship Relax es un proyecto que representa mi primera experiencia profesional en el desarrollo de software. Se trata de una aplicación we	2	[]	8	1
-11	2025-07-08 10:32:46.802178+02	1	Plataforma de reservas náuticas (Abril - Mayo 2025) Ship Relax es un proyecto que representa mi primera experiencia profesional en el desarrollo de software. Se trata de una aplicación web destinada a	2	[{"changed": {"fields": ["Title"]}}]	8	1
-12	2025-07-08 10:42:58.556724+02	2	Gestor de Productos Aplicación web desarrollada con una arquitectura full stack que permite gestionar productos de manera eficiente a través de operaciones CRUD. El frontend fue construido utilizando 	1	[{"added": {}}]	8	1
-13	2025-07-08 10:44:48.874132+02	4	Gestor de Productos Aplicación web desarrollada con una arquitectura full stack que permite gestionar productos de manera eficiente a través de operaciones CRUD. El frontend fue construido utilizando 	1	[{"added": {}}]	9	1
-14	2025-07-08 10:53:09.43456+02	3	Landing Page – TimiFTV Este proyecto representó mi primera experiencia como freelancer y marcó un paso importante en mi carrera profesional. Me encargué del desarrollo de la landing page para TimiFTV,	1	[{"added": {}}]	8	1
-15	2025-07-08 10:55:04.630627+02	5	Landing Page – TimiFTV Este proyecto representó mi primera experiencia como freelancer y marcó un paso importante en mi carrera profesional. Me encargué del desarrollo de la landing page para TimiFTV,	1	[{"added": {}}]	9	1
-16	2025-07-08 11:11:47.96047+02	4	VIP - Thai Massage Este proyecto fue mi segunda experiencia como freelancer, en la cual colaboré en el desarrollo de una aplicación web destinada a la reserva de turnos para masajes. Mi principal cont	1	[{"added": {}}]	8	1
-17	2025-07-08 11:12:17.879739+02	6	VIP - Thai Massage Este proyecto fue mi segunda experiencia como freelancer, en la cual colaboré en el desarrollo de una aplicación web destinada a la reserva de turnos para masajes. Mi principal cont	1	[{"added": {}}]	9	1
-18	2025-07-08 11:13:36.791814+02	5	Buscador de Noticias Desarrollé una aplicación web que permite a los usuarios buscar noticias en tiempo real según el país y la temática seleccionados. La interfaz fue construida con Angular, TypeScri	1	[{"added": {}}]	8	1
-19	2025-07-08 11:16:33.694135+02	7	Buscador de Noticias Desarrollé una aplicación web que permite a los usuarios buscar noticias en tiempo real según el país y la temática seleccionados. La interfaz fue construida con Angular, TypeScri	1	[{"added": {}}]	9	1
-20	2025-07-09 12:25:11.952579+02	3	Landing Page – TimiFTV Este proyecto representó mi primera experiencia como freelancer y marcó un paso importante en mi carrera profesional. Me encargué del desarrollo de la landing page para TimiFTV,	2	[{"changed": {"fields": ["Tecnologies"]}}]	8	1
 \.
 
 
@@ -646,7 +625,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 14, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
 
 
 --
