@@ -22,36 +22,25 @@ CLOUDINARY_API_SECRET = config('CLOUDINARY_API_SECRET')
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 
-# ALLOWED_HOSTS dinámico con fallback seguro para Railway + local
-_allowed = config('DJANGO_ALLOWED_HOSTS', default='').strip()
-if _allowed:
-    ALLOWED_HOSTS = [h.strip() for h in _allowed.split(',') if h.strip()]
-else:
-    ALLOWED_HOSTS = [
-        '127.0.0.1',
-        'localhost',
-        '.up.railway.app',
-        'portfolio-back.railway.internal',  # host interno de Railway
-    ]
+# =========================
+# ALLOWED_HOSTS y CSRF
+# =========================
+# Hosts permitidos para producción y local
+ALLOWED_HOSTS = config(
+    'DJANGO_ALLOWED_HOSTS',
+    default='localhost,127.0.0.1,.up.railway.app'
+).split(',')
 
-# CSRF Trusted Origins (necesario en Django 4/5 cuando hay HTTPS y dominios externos)
-_csrf = config('DJANGO_CSRF_TRUSTED_ORIGINS', default='').strip()
-if _csrf:
-    CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf.split(',') if o.strip()]
-else:
-    CSRF_TRUSTED_ORIGINS = [
-        'https://*.up.railway.app',
-        'https://*.vercel.app',
-        'https://portfolio-git-main-galo-borellis-projects.vercel.app',
-        'https://portfolio-nine-xi-mz73974ekx.vercel.app',
-    ]
+# CSRF Trusted Origins (Django 4/5 necesita https en producción)
+CSRF_TRUSTED_ORIGINS = config(
+    'DJANGO_CSRF_TRUSTED_ORIGINS',
+    default='https://*.up.railway.app,https://*.vercel.app'
+).split(',')
 
-# Respeto del proxy de Railway (evita problemas con HTTPS y redirects)
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 if not DEBUG:
-    # Cookies seguras en producción
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
@@ -64,8 +53,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://portfolio-git-main-galo-borellis-projects.vercel.app",
     "https://portfolio-nine-xi-mz73974ekx.vercel.app",
 ]
-# Si necesitás cookies/sesión entre dominios, descomenta:
-# CORS_ALLOW_CREDENTIALS = True
 
 # =========================
 # Apps
@@ -78,13 +65,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Externas
     'rest_framework',
     'corsheaders',
     'cloudinary',
     'cloudinary_storage',
 
-    # Tu app
     'portfolio_app',
 ]
 
@@ -93,10 +78,8 @@ INSTALLED_APPS = [
 # =========================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # Si instalás WhiteNoise, agregalo aquí debajo:
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # debe estar arriba de CommonMiddleware
+    'corsheaders.middleware.CorsMiddleware',  # debe estar arriba
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -125,45 +108,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 # =========================
-# Base de datos (sólido para Railway)
+# Base de datos
 # =========================
-# 1) Tomamos DATABASE_URL si existe
 db_url = config('DATABASE_URL', default='').strip()
 
-# 2) Arreglos de robustez por si llega incompleta desde Railway
-#    - Si falta DBNAME (termina en "/"), lo completamos con PGDATABASE
+# Reparaciones comunes de URL de Railway
 if db_url.endswith('/'):
-    db_url = db_url + config('PGDATABASE', default='')
-
-#    - Si falta USER (url empieza con "postgresql://:"), inyectamos PGUSER (o 'postgres')
+    db_url += config('PGDATABASE', default='postgres')
 if db_url.startswith('postgresql://:'):
-    db_url = db_url.replace(
-        'postgresql://:',
-        f"postgresql://{config('PGUSER', default='postgres')}:",
-        1
-    )
+    db_url = db_url.replace('postgresql://:', f"postgresql://{config('PGUSER', default='postgres')}:")
 
-# 3) Construimos DATABASES con dj-database-url. Si aún no hay URL, usamos los PG* manuales.
-if db_url:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=db_url,
-            conn_max_age=600,
-            engine='django.db.backends.postgresql',
-        )
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('PGDATABASE'),
-            'USER': config('PGUSER'),
-            'PASSWORD': config('PGPASSWORD'),
-            'HOST': config('PGHOST'),
-            'PORT': config('PGPORT', cast=int),
-            'CONN_MAX_AGE': 600,
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=db_url or None,
+        conn_max_age=600,
+        engine='django.db.backends.postgresql'
+    )
+}
 
 # =========================
 # Password validators
@@ -188,11 +149,6 @@ USE_TZ = True
 # =========================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# Si instalás WhiteNoise, podés usar:
-# STORAGES = {
-#     "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
-#     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
-# }
 
 # =========================
 # DRF
