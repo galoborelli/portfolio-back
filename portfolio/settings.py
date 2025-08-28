@@ -70,12 +70,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'corsheaders',
     'cloudinary',
     'cloudinary_storage',
-
     'portfolio_app',
 ]
 
