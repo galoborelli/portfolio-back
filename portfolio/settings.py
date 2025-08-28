@@ -84,6 +84,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
+
+print("DATABASE_URL:", config('DATABASE_URL', default=None))
+print("DATABASES:", dj_database_url.config(default=config('DATABASE_URL', default=None)))
 # Base de datos
 if config('DATABASE_URL', default=None):
     DATABASES = {
