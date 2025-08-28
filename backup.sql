@@ -5,8 +5,7 @@
 -- Dumped from database version 17.2
 -- Dumped by pg_dump version 17.2
 -- Eliminar todas las tablas existentes
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

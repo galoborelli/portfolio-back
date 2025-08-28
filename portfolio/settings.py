@@ -10,8 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =========================
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_CLOUD_NAME = config('CLOUDINARY_CLOUD_NAME')
 CLOUDINARY_API_KEY = config('CLOUDINARY_API_KEY')
@@ -21,17 +20,22 @@ CLOUDINARY_API_SECRET = config('CLOUDINARY_API_SECRET')
 # Seguridad básica
 # =========================
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DJANGO_DEBUG', default=False, cast=lambda v: v.lower() in ('true', '1'))
+def str_to_bool(v):
+    if isinstance(v, bool):
+        return v
+    return str(v).lower() in ('true', '1')
+
+DEBUG = config('DJANGO_DEBUG', default=False, cast=str_to_bool)
 
 
 # =========================
 # ALLOWED_HOSTS y CSRF
 # =========================
 # Hosts permitidos para producción y local
-ALLOWED_HOSTS = config(
+ALLOWED_HOSTS = [host.strip() for host in config(
     'DJANGO_ALLOWED_HOSTS',
     default='localhost,127.0.0.1,.up.railway.app'
-).split(',')
+).split(',')]
 
 # CSRF Trusted Origins (Django 4/5 necesita https en producción)
 CSRF_TRUSTED_ORIGINS = config(
