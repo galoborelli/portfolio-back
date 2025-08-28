@@ -20,7 +20,8 @@ CLOUDINARY_API_SECRET = config('CLOUDINARY_API_SECRET')
 # Seguridad básica
 # =========================
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
+DEBUG = config('DJANGO_DEBUG', default=False, cast=lambda v: v.lower() in ('true', '1'))
+
 
 # =========================
 # ALLOWED_HOSTS y CSRF
